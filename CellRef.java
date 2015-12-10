@@ -1,5 +1,7 @@
 // class for capturing references to cells in formulas
 
+import java.util.LinkedList;
+
 class CellRef implements IFormula {
   String cellname;
   
@@ -13,8 +15,16 @@ class CellRef implements IFormula {
   }
   
   // compute value of formula
-  public int valueOf() {
-    // replace or edit the next line as part of your work
-    throw new RuntimeException("Unresolved cell reference");
+  public int valueOf(ISpreadsheet sheet, LinkedList<String> used) throws CyclicFormulaException {
+
+    if(used.contains(cellname)){
+      throw new CyclicFormulaException(cellname);
+    }
+    else{
+      used.add(cellname);
+      return sheet.lookupValue(cellname, used);
+
+    }
+    //throw new RuntimeException("Unresolved cell reference");
   }
 }

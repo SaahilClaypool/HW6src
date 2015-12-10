@@ -1,5 +1,7 @@
 // class for simple formulas consisting of just a single number
 
+import java.util.LinkedList;
+
 class Num implements IFormula {
   int value;
   Num(int value) {
@@ -12,7 +14,7 @@ class Num implements IFormula {
   }
   
   // compute value of formula
-  public int valueOf() {
+  public int valueOf(ISpreadsheet s, LinkedList<String > used) {
     return this.value;
   }
  

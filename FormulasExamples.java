@@ -16,11 +16,11 @@ class FormulasExamples {
   boolean test1(Tester t) {
     return t.checkExpect(num2.noRefs(),true);
   }
-
+/*
   boolean test2(Tester t) {
     return t.checkExpect(num2.valueOf(),2);
   }
-  
+ */
   boolean test3(Tester t) {
     return t.checkExpect(a10.noRefs(),false);
   }
@@ -29,9 +29,9 @@ class FormulasExamples {
     return t.checkExpect(f1.noRefs(), true);
   }
 
-  boolean test5(Tester t) {
-      return t.checkExpect(f1.valueOf(), 7);
-  }
+ // boolean test5(Tester t) {
+   //   return t.checkExpect(f1.valueOf(), 7);
+  //}
   
   boolean test6(Tester t) {
     return t.checkExpect(f2.noRefs(), false);
