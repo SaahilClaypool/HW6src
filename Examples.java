@@ -18,14 +18,23 @@ class Examples {
    */
 
   // test case one, basic test
-  public boolean test1 (Tester t) throws CyclicFormulaException {
-    ISpreadsheet s = new Spreadsheet();
-    s.editContents("a10", new Num(5));
-    s.editContents("b10", new Num(3));
-    s.editContents("c10", new Plus(new CellRef("a10"),
-            new CellRef("b10")));
-    return t.checkExpect(s.lookupValue("c10"), 8);
+
+  boolean testSimplePlusCellRefs(Tester t) {
+    try {
+      ISpreadsheet s = new Spreadsheet();
+      s.editContents("a10", new Num(5));
+      s.editContents("b10", new Num(3));
+      s.editContents("c10", new Plus(new CellRef("a10"),
+              new CellRef("b10")));
+      return t.checkExpect(s.lookupValue("c10"),
+              8);
+    } catch (CyclicFormulaException e) {
+      return t.checkExpect(false, true);
+    } catch (EmptyCellException e) {
+      return t.checkExpect(false, true);
+    }
   }
+
   /*
     TEST CASE 2
     ISpreadsheet s = new Spreadsheet();
@@ -37,16 +46,21 @@ class Examples {
     s.lookupValue("c10") should return 12
    */
   // test case given 2
-  public boolean test2 (Tester t) throws CyclicFormulaException {
 
-    ISpreadsheet s = new Spreadsheet();
-    s.editContents("a10", new Num(5));
-    s.editContents("b10", new Num(3));
-    s.editContents("c10", new Plus(new CellRef("a10"),
-            new CellRef("b10")));
-    s.editContents("a10", new Num(9));
-    return  t.checkExpect(s.lookupValue("c10"),12);
-
+  boolean test2(Tester t) {
+    try {
+      ISpreadsheet s = new Spreadsheet();
+      s.editContents("a10", new Num(5));
+      s.editContents("b10", new Num(3));
+      s.editContents("c10", new Plus(new CellRef("a10"),
+              new CellRef("b10")));
+      s.editContents("a10", new Num(9));
+      return  t.checkExpect(s.lookupValue("c10"),12);
+    } catch (CyclicFormulaException e) {
+      return t.checkExpect(false, true);
+    } catch (EmptyCellException e) {
+      return t.checkExpect(false, true);
+    }
   }
   public boolean testCyclic (Tester t){
     ISpreadsheet s = new Spreadsheet();
@@ -58,7 +72,10 @@ class Examples {
     } catch (CyclicFormulaException e) {
       //e.printStackTrace();
       return t.checkExpect(e.equals(new CyclicFormulaException("a10")));
+    } catch(EmptyCellException e){
+      return t.checkExpect(false, true);
     }
+
     return false;
   }
   // The tests here are commented out because the Spreadsheet class

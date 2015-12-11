@@ -13,7 +13,7 @@ class Spreadsheet implements ISpreadsheet {
   }
   
   // compute the current value of the named cell
-  public Integer lookupValue(String forcell) throws CyclicFormulaException {
+  public Integer lookupValue(String forcell) throws CyclicFormulaException , EmptyCellException{
     // replace this with actual code
 
     return lookupValue(forcell, new LinkedList<String>());
