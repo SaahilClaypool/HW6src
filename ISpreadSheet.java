@@ -7,5 +7,5 @@ interface ISpreadsheet {
   
   // compute the current value of the named cell
   Integer lookupValue(String forcell) throws CyclicFormulaException, EmptyCellException;
-  public Integer lookupValue(String forcell, LinkedList<String> used) throws CyclicFormulaException;
+  public Integer lookupValue(String forcell, LinkedList<String> used) throws CyclicFormulaException, EmptyCellException;
 }

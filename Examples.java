@@ -4,6 +4,8 @@
 
 import tester.*;
 
+import javax.imageio.spi.IIOServiceProvider;
+
 class Examples {
 
   Examples(){}
@@ -35,17 +37,18 @@ class Examples {
     }
   }
 
-  /*
-    TEST CASE 2
-    ISpreadsheet s = new Spreadsheet();
-    s.editContents("a10", new Num(5));
-    s.editContents("b10", new Num(3));
-    s.editContents("c10", new Plus(new CellRef("a10"),
-                                   new CellRef("b10")));
-    s.editContents("a10", new Num(9));
-    s.lookupValue("c10") should return 12
-   */
-  // test case given 2
+  boolean testCyclicTwoPaths(Tester t){
+    try{
+      ISpreadsheet s = new Spreadsheet();
+      s.editContents("1" , new Plus(new CellRef("2"), new CellRef("2")));
+      s.editContents("2", new Num(2));
+      return t.checkExpect(s.lookupValue("1"), 4);
+    } catch (EmptyCellException e) {
+      return t.checkExpect(false,true);
+    } catch (CyclicFormulaException e) {
+      return t.fail("CYCLIC");
+    }
+  }
 
   boolean test2(Tester t) {
     try {

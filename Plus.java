@@ -25,7 +25,7 @@ class Plus implements IFormula {
    * @param used
    * @return
      */
-  public int valueOf(ISpreadsheet sheet, LinkedList<String> used) throws CyclicFormulaException {
+  public int valueOf(ISpreadsheet sheet, LinkedList<String> used) throws CyclicFormulaException, EmptyCellException {
 
     return this.left.valueOf(sheet,used) + this.right.valueOf(sheet,used);
   }

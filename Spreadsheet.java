@@ -14,11 +14,15 @@ class Spreadsheet implements ISpreadsheet {
   
   // compute the current value of the named cell
   public Integer lookupValue(String forcell) throws CyclicFormulaException , EmptyCellException{
-    // replace this with actual code
+
 
     return lookupValue(forcell, new LinkedList<String>());
   }
-  public Integer lookupValue(String forcell, LinkedList<String> used) throws CyclicFormulaException {
+  public Integer lookupValue(String forcell, LinkedList<String> used) throws CyclicFormulaException, EmptyCellException {
+    IFormula f = cells.get(forcell);
+    if(f == null){
+      throw new EmptyCellException(forcell);
+    }
     return cells.get(forcell).valueOf(this,used);
   }
 

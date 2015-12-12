@@ -15,12 +15,13 @@ class CellRef implements IFormula {
   }
   
   // compute value of formula
-  public int valueOf(ISpreadsheet sheet, LinkedList<String> used) throws CyclicFormulaException {
+  public int valueOf(ISpreadsheet sheet, LinkedList<String> used) throws CyclicFormulaException, EmptyCellException {
 
     if(used.contains(cellname)){
       throw new CyclicFormulaException(cellname);
     }
     else{
+      used = (LinkedList<String>) used.clone();
       used.add(cellname);
       return sheet.lookupValue(cellname, used);
 
