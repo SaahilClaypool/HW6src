@@ -86,31 +86,27 @@ class Examples {
   // Uncomment these tests cases once you have actual contents
   //   in those two methods
   
-  /*
-  // test that we can add two cell refs
-  boolean testSimplePlusCellRefs(Tester t) {
-    ISpreadsheet s = new Spreadsheet();
-    s.editContents("a10", new Num(5));
-    s.editContents("b10", new Num(3));
-    s.editContents("c10", new Plus(new CellRef("a10"), 
-                                   new CellRef("b10")));
-    return t.checkExpect(s.lookupValue("c10"),
-                         8);
-  }
-  */
 
-  /*
+  // test that we can add two cell refs
+
+
+
   // test that cell refs grab current value of cells
   boolean testUpdateCellRefs(Tester t) {
-    ISpreadsheet s = new Spreadsheet();
-    s.editContents("a10", new Num(5));
-    s.editContents("b10", new Num(3));
-    s.editContents("c10", new Plus(new CellRef("a10"), 
-                                   new CellRef("b10")));
-    s.editContents("a10", new Num(9));
-    return t.checkExpect(s.lookupValue("c10"),
-                         12);
+    try {
+      ISpreadsheet s = new Spreadsheet();
+      s.editContents("a10", new Num(5));
+      s.editContents("b10", new Num(3));
+      s.editContents("c10", new Plus(new CellRef("a10"),
+              new CellRef("b10")));
+      s.editContents("a10", new Num(9));
+      return t.checkExpect(s.lookupValue("c10"),
+              12);
+    }
+    catch(Exception e){
+      return t.checkExpect(true,false);
+    }
   }
-  */
+
 
 }
