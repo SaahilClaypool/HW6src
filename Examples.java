@@ -74,12 +74,33 @@ class Examples {
 
     } catch (CyclicFormulaException e) {
       //e.printStackTrace();
-      return t.checkExpect(e.equals(new CyclicFormulaException("a10")));
+      return t.checkExpect(e.equals(new CyclicFormulaException("a10")), true);
     } catch(EmptyCellException e){
       return t.checkExpect(false, true);
     }
 
     return false;
+  }
+
+  // test an indirect cyclic reference
+  public boolean testCyclicSecondLevel (Tester t){
+    try{
+      ISpreadsheet s = new Spreadsheet();
+      s.editContents("1", new CellRef("2"));
+      s.editContents("2", new CellRef("3") );
+      s.editContents("3", new Plus(new CellRef("2"), new Num(1)));
+      s.lookupValue("1");
+      return t.checkExpect(false, true);
+    }
+    catch(CyclicFormulaException e){
+
+
+
+      return t.checkExpect(e.equals(new CyclicFormulaException("2")), true);
+
+    } catch (EmptyCellException e) {
+      return t.checkExpect(false, true);
+    }
   }
   // The tests here are commented out because the Spreadsheet class
   //   methods throw exceptions that these methods don't catch.
