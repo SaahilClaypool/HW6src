@@ -4,20 +4,12 @@
 
 import tester.*;
 
-import javax.imageio.spi.IIOServiceProvider;
+
 
 class Examples {
 
   Examples(){}
-  /*
-  TEST CASE 1
-    ISpreadsheet s = new Spreadsheet();
-    s.editContents("a10", new Num(5));
-    s.editContents("b10", new Num(3));
-    s.editContents("c10", new Plus(new CellRef("a10"),
-                                   new CellRef("b10")));
-    s.lookupValue("c10") should return 8
-   */
+
 
   // test case one, basic test
 
@@ -36,7 +28,7 @@ class Examples {
       return t.checkExpect(false, true);
     }
   }
-
+  //Should pass (fails when list of visited elements not cloned
   boolean testCyclicTwoPaths(Tester t){
     try{
       ISpreadsheet s = new Spreadsheet();
@@ -49,8 +41,8 @@ class Examples {
       return t.fail("CYCLIC");
     }
   }
-
-  boolean test2(Tester t) {
+  // edits elements before computation
+  boolean testAddAndEdit(Tester t) {
     try {
       ISpreadsheet s = new Spreadsheet();
       s.editContents("a10", new Num(5));
@@ -65,6 +57,7 @@ class Examples {
       return t.checkExpect(false, true);
     }
   }
+  // Basic cyclic test, reference to self is cyclic
   public boolean testCyclic (Tester t){
     ISpreadsheet s = new Spreadsheet();
     try{
@@ -82,13 +75,13 @@ class Examples {
     return false;
   }
 
-  // test an indirect cyclic reference
+  // test an indirect cyclic reference (1 -> 2 -> 3 -> 1
   public boolean testCyclicSecondLevel (Tester t){
     try{
       ISpreadsheet s = new Spreadsheet();
       s.editContents("1", new CellRef("2"));
       s.editContents("2", new CellRef("3") );
-      s.editContents("3", new Plus(new CellRef("2"), new Num(1)));
+      s.editContents("3", new Plus(new CellRef("1"), new Num(1)));
       s.lookupValue("1");
       return t.checkExpect(false, true);
     }

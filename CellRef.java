@@ -1,7 +1,7 @@
 // class for capturing references to cells in formulas
 
 import java.util.LinkedList;
-
+// Points to a different spot in spreadsheet
 class CellRef implements IFormula {
   String cellname;
   

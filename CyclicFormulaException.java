@@ -6,6 +6,11 @@ class CyclicFormulaException extends Exception {
     this.cellname = cellname;
   }
 
+  /**
+   * determines if two cyclic exceptions are the same
+   * @param o
+     * @return
+     */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;

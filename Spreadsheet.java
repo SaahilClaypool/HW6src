@@ -18,6 +18,15 @@ class Spreadsheet implements ISpreadsheet {
 
     return lookupValue(forcell, new LinkedList<String>());
   }
+
+  /**
+   * computes value of given cell.
+   * @param forcell : target cell
+   * @param used : Takes in to account each cell that has already been visited
+   * @return
+   * @throws CyclicFormulaException
+   * @throws EmptyCellException
+     */
   public Integer lookupValue(String forcell, LinkedList<String> used) throws CyclicFormulaException, EmptyCellException {
     IFormula f = cells.get(forcell);
     if(f == null){
